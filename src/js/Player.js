@@ -14,6 +14,9 @@ class Player extends GameObject {
     getHitbox() {
         return new Rect(this.x, this.y, this.width, this.height);
     }
+    center() {
+        return {x: this.x + this.width / 2, y: this.y + this.height/2};
+    }
     update(delta) {
         let aDown = this.gameContext.input.keyIsDown(65);
         let dDown = this.gameContext.input.keyIsDown(68);
@@ -35,8 +38,18 @@ class Player extends GameObject {
         if(wDown) {
             this.y -= this.speed * delta;
         }
-        if(this.gameContext.handler.checkIntersects(this)) {
-            console.log('hitting!');
+        let hitData = {};
+        if(hitData = this.gameContext.handler.checkIntersects(this)) {
+            console.log(hitData);
+            if(Math.abs(hitData.xDiff) > Math.abs(hitData.yDiff)) {
+                let dx = (hitData.other.width + this.width) / 2 
+                        - Math.abs(hitData.other.center().x  - this.center().x);
+                this.x += Util.normalize(hitData.xDiff) * dx;
+            } else {
+                let dy = (hitData.other.height + this.height) / 2 
+                        - Math.abs(hitData.other.center().y  - this.center().y);
+                this.y += Util.normalize(hitData.yDiff) * dy;
+            }
         }
     }
 

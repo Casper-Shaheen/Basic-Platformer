@@ -15,4 +15,7 @@ class Block extends GameObject {
     getHitbox() {
         return new Rect(this.x, this.y, this.width, this.height);
     }
+    center() {
+        return {x: this.x + this.width / 2, y: this.y + this.height/2};
+    }
 }

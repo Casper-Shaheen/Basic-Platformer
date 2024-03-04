@@ -24,10 +24,11 @@ class Handler {
         for(let i = 0; i < this.gameObjects.length; ++i) {
             let go = this.gameObjects[i];
             if(go != gameObject && go.tags.includes('hittable')) {
-                if(gameObject.getHitbox().intersects(go)) {
+                if(gameObject.getHitbox().intersects(go.getHitbox())) {
                     let hitData = {
-                        xDiff: go.x - gameObject.x,
-                        yDiff: go.y - gameObject.y
+                        other: go,
+                        xDiff: (gameObject.center().x) - (go.center().x),
+                        yDiff: (gameObject.center().y) - (go.center().y)
                     };
                     return hitData;
                 }
