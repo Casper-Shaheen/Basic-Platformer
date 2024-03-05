@@ -33,7 +33,7 @@ class Floater extends GameObject {
 
     }
     render(canvas) {
-        canvas.setFillColor('salmon');
+        canvas.setFillColor(this.color);
         canvas.fillRect(this.x, this.y, this.width, this.height);
     }
 }

@@ -20,10 +20,17 @@ class Handler {
                this.gameObjects[i].render(ctx);
         }
     }
-    checkIntersects(gameObject) {
+    physicsUpdate(delta) {
+        for(let i = 0; i < this.gameObjects.length; ++i) {
+            if(this.gameObjects[i].tags.includes('physical')) {
+                this.gameObjects[i].physicsUpdate(delta);
+            }
+        }
+    }
+    checkCollisions(gameObject) {
         for(let i = 0; i < this.gameObjects.length; ++i) {
             let go = this.gameObjects[i];
-            if(go != gameObject && go.tags.includes('hittable')) {
+            if(go != gameObject && go.tags.includes('hittable') && gameObject.distanceToObject(go) < 100) {
                 if(gameObject.getHitbox().intersects(go.getHitbox())) {
                     let hitData = {
                         other: go,

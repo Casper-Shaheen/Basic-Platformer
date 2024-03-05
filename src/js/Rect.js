@@ -18,10 +18,10 @@ class Rect {
          return this.y + this.height;
     }
     intersects(other) {
-        if(this.right() > other.left() && this.left() < other.right() &&
-            this.bottom() > other.top() && this.top() < other.bottom()) {
-                return true;
-            }
-        return false;
+        return (this.right() > other.left() && this.left() < other.right() &&
+        this.bottom() > other.top() && this.top() < other.bottom());
+    }
+    pointIntersects(x, y) {
+        return x > this.left() && x < this.right() && y > this.top() && y < this.bottom();
     }
 }
