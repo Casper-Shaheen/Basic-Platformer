@@ -2,7 +2,6 @@
 A Basic platform game written with HTML CSS and Javascript.
 
 # GameObject Inheritance Tree
-
 GameObject
     |
     |------>
