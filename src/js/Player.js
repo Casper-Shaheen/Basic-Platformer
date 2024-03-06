@@ -12,6 +12,7 @@ class Player extends Physical {
         let dDown = this.gameContext.input.keyIsDown(68);
         let wDown = this.gameContext.input.keyIsDown(87);
         let sDown = this.gameContext.input.keyIsDown(83);
+        let barDown = this.gameContext.input.keyIsDown(32);
         
         if(dDown) {
             this.x += this.speed * delta;
@@ -19,7 +20,7 @@ class Player extends Physical {
         if(aDown) {
             this.x -= this.speed * delta;
         }
-        if(wDown && this.checkGrounded()) {
+        if(barDown && this.checkGrounded()) {
             this.velY = -800;
         }
         this.resolveCollisions(10);

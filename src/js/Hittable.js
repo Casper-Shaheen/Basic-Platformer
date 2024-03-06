@@ -13,6 +13,13 @@ functionality to get a hitbox (a rectangle made with the
 Rect class), locate the object's center, and determine
 the distance of the objects center from the distance of 
 another object's center.
+
+For the necessary operations, this class requires a copy
+of the Game class it belongs to, so that it can check 
+the objects in the Game's Handler field to see if they are 
+intersecting with itself.
+
+Also requires a position and a width and height.
 */
 
 class Hittable extends GameObject {
@@ -55,7 +62,9 @@ class Hittable extends GameObject {
 
     /*
     --- distanceToObject() ---
-    
+    inputs: other -> required to be of type Hittable
+    outputs: float distance to the other object's center
+    from this object's center.
     --------------------------
     */
     distanceToObject(other) {
@@ -64,6 +73,17 @@ class Hittable extends GameObject {
           + Math.pow(other.center().y - this.center().y, 2)
             );
     }
+
+
+    /*
+    --- resolveCollisions() ---
+    inputs: depth -> an integer value of how many times to resolve
+    returns: void
+    Descrition: This method checks the game's handler for any objects
+    it's intersecting with, and calculates the smallest movement to 
+    resolve in either the x or y axis (not both).
+    ---------------------------
+    */
     resolveCollisions(depth) {
         let hitData = {};
         for(let i = 0; i < depth && (hitData = this.gameContext.handler.checkCollisions(this)); ++i) {
